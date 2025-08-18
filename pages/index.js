@@ -19,7 +19,7 @@ export default function Home() {
         {/* The Hero Image acting as a background */}
         <div className="absolute top-0 left-0 w-full h-full z-0">
           <Image
-            src="/Robotteam.jpg"
+            src="/Robotteam.jpg" // <-- THIS IS THE CORRECTED LINE
             alt="A cinematic sci-fi image of three futuristic humanoid robots in a sleek, high-tech laboratory."
             layout="fill"
             objectFit="cover"
