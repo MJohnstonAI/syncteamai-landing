@@ -23,7 +23,6 @@ export default function Home() {
 
     if (response.ok) {
       setMessage(`Success! Thank you for joining.`);
-      // Redirect to a thank-you page after a short delay
       setTimeout(() => {
         window.location.href = '/thank-you';
       }, 2000);
@@ -48,7 +47,7 @@ export default function Home() {
       </div>
 
       {/* Header with brand name */}
-      <header className="absolute top-0 left-0 p-8">
+      <header className="absolute top-0 left-0 p-8 z-20"> {/* <--- THIS IS THE CORRECTED LINE */}
         <div className="text-2xl font-bold">SyncTeamAI</div>
       </header>
       
