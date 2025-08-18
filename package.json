@@ -7,10 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "vercel-build": "next build"   // ✅ Added for Vercel compatibility
+    "vercel-build": "next build"
   },
   "dependencies": {
-    "next": "14.2.3",             // ✅ Good: Next.js is here
+    "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18"
   },
