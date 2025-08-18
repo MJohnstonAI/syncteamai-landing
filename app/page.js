@@ -1,65 +1,69 @@
-"use client"; // This line is important - it makes the form interactive
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 import Image from "next/image";
 
 export default function Home() {
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage('Subscribing...');
+    setMessage("Subscribing...");
 
-    const response = await fetch('/api/subscribe', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email }),
-    });
+    try {
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
 
-    const result = await response.json();
+      const result = await response.json();
 
-    if (response.ok) {
-      setMessage(`Success! Thank you for joining.`);
-      setTimeout(() => {
-        window.location.href = '/thank-you';
-      }, 2000);
-    } else {
-      setMessage(`Error: ${result.error}`);
+      if (response.ok) {
+        setMessage("Success! Thank you for joining.");
+        setTimeout(() => {
+          window.location.href = "/thank-you";
+        }, 2000);
+      } else {
+        setMessage(`Error: ${result.error ?? "Something went wrong."}`);
+      }
+    } catch (err) {
+      setMessage("Network error. Please try again.");
     }
   };
 
   return (
-    <main className="relative min-h-screen w-full flex flex-col items-center justify-center text-center overflow-hidden bg-[#0a0a0a] text-white">
-      {/* Background image and overlay */}
+    <main className="relative min-h-screen w-full flex flex-col items-center justify-center text-center overflow-hidden bg-black text-white">
+      {/* Background image */}
       <div className="absolute inset-0 -z-10">
         <Image
-          src="/Robotteam.jpg"
+          src="/robotteam.jpg"
           alt="A cinematic sci-fi image of three futuristic humanoid robots in a sleek, high-tech laboratory."
           fill
           priority
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-black/60" />
+        {/* Overlay to ensure foreground contrast */}
+        <div className="absolute inset-0 bg-black/60 pointer-events-none" />
       </div>
 
       {/* Header with brand name */}
-      <header className="absolute top-0 left-0 p-8 z-20"> {/* <--- THIS IS THE CORRECTED LINE */}
+      <header className="absolute top-0 left-0 p-8 z-20">
         <div className="text-2xl font-bold">SyncTeamAI</div>
       </header>
-      
-      {/* Main content container */}
-      <div className="relative z-10 flex flex-col items-center p-8">
 
+      {/* Foreground content */}
+      <div className="relative z-10 flex flex-col items-center p-8 w-full max-w-2xl">
         <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
           Coming Soon: A Quantum Leap in AI Technology.
         </h1>
 
-        {/* Email signup form */}
-        <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-4 justify-center w-full max-w-lg mt-4">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col md:flex-row gap-4 justify-center w-full mt-4"
+        >
           <label htmlFor="email-input" className="sr-only">
             Email address
           </label>
@@ -72,6 +76,7 @@ export default function Home() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            autoComplete="email"
           />
           <button
             type="submit"
@@ -80,7 +85,12 @@ export default function Home() {
             Be the First to Witness It
           </button>
         </form>
-        {message && <p className="mt-4 text-lg">{message}</p>}
+
+        {message && (
+          <p className="mt-4 text-lg" role="status" aria-live="polite">
+            {message}
+          </p>
+        )}
       </div>
     </main>
   );
