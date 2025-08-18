@@ -38,7 +38,7 @@ export default function Home() {
       {/* Background image */}
       <div className="absolute inset-0 -z-10">
         <Image
-          src="/robotteam.jpg"
+          src="/Robotteam.jpg"
           alt="A cinematic sci-fi image of three futuristic humanoid robots in a sleek, high-tech laboratory."
           fill
           priority
