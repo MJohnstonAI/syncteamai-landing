@@ -1,14 +1,14 @@
-import './globals.css'
+import "./globals.css";
 
 export const metadata = {
-  title: 'SyncTeamAI',
-  description: 'Coming Soon: A Quantum Leap in AI Technology.',
-}
+  title: "SyncTeamAI — Coming Soon",
+  description: "Join the waitlist for SyncTeamAI.",
+};
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>{children}</body>
     </html>
-  )
+  );
 }
