@@ -1,8 +1,12 @@
 export default function ThankYou() {
   return (
-    <main className="min-h-screen w-full flex flex-col items-center justify-center text-center bg-[#0a0a0a] text-white p-8">
-      <h1 className="text-4xl md:text-5xl font-extrabold mb-4">Thank You!</h1>
-      <p className="text-xl text-gray-300">You are on the list. We'll be in touch soon.</p>
+    <main className="min-h-screen grid place-items-center bg-black text-white p-8">
+      <div className="max-w-xl text-center">
+        <h1 className="text-4xl font-extrabold mb-4">You’re on the list 🎉</h1>
+        <p className="text-lg text-gray-300">
+          Thanks for your interest. We’ll email you as soon as SyncTeamAI is ready.
+        </p>
+      </div>
     </main>
   );
 }
