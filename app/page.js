@@ -36,14 +36,14 @@ export default function Home() {
   return (
     <main className="relative min-h-screen w-full flex flex-col items-center justify-center text-center overflow-hidden bg-black text-white">
       {/* Background image */}
-      <div className="absolute inset-0 -z-10">
+      <div className="absolute inset-0">
         <Image
           src="/Robotteam.jpg"
           alt="A cinematic sci-fi image of three futuristic humanoid robots in a sleek, high-tech laboratory."
           fill
           priority
           sizes="100vw"
-          className="object-cover"
+          className="z-0"
         />
         {/* Overlay to ensure foreground contrast */}
         <div className="absolute inset-0 bg-black/60 pointer-events-none" />
