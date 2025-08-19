@@ -48,8 +48,8 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen w-full flex flex-col items-center justify-center text-center overflow-hidden bg-black text-white">
-      {/* Background image behind everything */}
-      <div className="absolute inset-0 -z-10">
+      {/* Background image behind everything (z-0) */}
+      <div className="absolute inset-0 z-0">
         <Image
           src="/Robotteam.jpg" // capital R to match your file
           alt="Futuristic humanoid robots in a high-tech lab."
@@ -58,15 +58,16 @@ export default function Home() {
           sizes="100vw"
           className="object-cover"
         />
+        {/* Contrast overlay sits with the background, still behind content */}
         <div className="absolute inset-0 bg-black/60" />
       </div>
 
-      {/* Brand */}
+      {/* Brand (z-20 so it's above everything) */}
       <header className="absolute top-0 left-0 p-8 z-20">
         <div className="text-2xl font-bold">SyncTeamAI</div>
       </header>
 
-      {/* Foreground content */}
+      {/* Foreground content (z-10 above the background) */}
       <div className="relative z-10 flex flex-col items-center p-8 w-full max-w-2xl">
         <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
           Coming Soon: A Quantum Leap in AI Technology.
