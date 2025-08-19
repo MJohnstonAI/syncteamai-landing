@@ -7,8 +7,8 @@ export default function Home() {
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [mailtoHref, setMailtoHref] = useState("");
 
-  // build a mailto link on demand
   const handleContact = (e) => {
     e.preventDefault();
 
@@ -34,13 +34,16 @@ export default function Home() {
       ``,
       `Thanks!`,
     ];
-    const mailto = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join("\n"))}`;
+    const mailto = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
+      bodyLines.join("\n")
+    )}`;
 
-    // open the user's default mail app
+    // Launch the user's mail app
     window.location.href = mailto;
 
-    // friendly on-page note
-    setMessage(`Opening your email app… If it didn't open, click here: ${to}`);
+    // Store & show a clickable fallback
+    setMailtoHref(mailto);
+    setMessage("Opening your email app… If it didn't open, tap the link below.");
   };
 
   return (
@@ -48,7 +51,7 @@ export default function Home() {
       {/* Background image behind everything */}
       <div className="absolute inset-0 -z-10">
         <Image
-          src="/Robotteam.jpg"  // <-- capital R to match your file
+          src="/Robotteam.jpg" // capital R to match your file
           alt="Futuristic humanoid robots in a high-tech lab."
           fill
           priority
@@ -66,59 +69,4 @@ export default function Home() {
       {/* Foreground content */}
       <div className="relative z-10 flex flex-col items-center p-8 w-full max-w-2xl">
         <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
-          Coming Soon: A Quantum Leap in AI Technology.
-        </h1>
-
-        <form
-          onSubmit={handleContact}
-          className="flex flex-col md:flex-row gap-4 justify-center w-full mt-4"
-          aria-describedby="form-status"
-        >
-          <div className="flex flex-col md:flex-row gap-4 w-full">
-            <label htmlFor="first-name" className="sr-only">First name</label>
-            <input
-              id="first-name"
-              type="text"
-              placeholder="First name"
-              className="bg-gray-800/70 border border-gray-700 rounded-md px-4 py-3 text-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 flex-grow"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              required
-              autoComplete="given-name"
-            />
-
-            <label htmlFor="email" className="sr-only">Email address</label>
-            <input
-              id="email"
-              type="email"
-              placeholder="Email address"
-              className="bg-gray-800/70 border border-gray-700 rounded-md px-4 py-3 text-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 flex-grow"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              autoComplete="email"
-              inputMode="email"
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="bg-blue-600 hover:bg-blue-700 rounded-md px-8 py-3 text-lg font-semibold transition-colors"
-          >
-            Contact via Email
-          </button>
-        </form>
-
-        {message && (
-          <p id="form-status" className="mt-4 text-lg" role="status" aria-live="polite">
-            {message}
-          </p>
-        )}
-
-        <p className="mt-4 text-sm text-gray-300">
-          We’ll only use your details to notify you about launch.
-        </p>
-      </div>
-    </main>
-  );
-}
+          Coming Soon: A Quantum Lea
