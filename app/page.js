@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 
 export default function Home() {
   const [firstName, setFirstName] = useState("");
@@ -50,20 +49,22 @@ export default function Home() {
 
   return (
     <main className="min-h-screen flex flex-col bg-black text-white">
-      {/* Top panel: image-only hero (fills remaining height; min ~65vh) */}
-      <section className="relative flex-1 min-h-[65vh] w-full">
-        <Image
-          src="/Robotteam.jpg"  // Capital R to match your file name
-          alt="Futuristic humanoid robots in a high-tech lab."
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
-      </section>
+      {/* TOP PANEL — image-only hero
+          Use CSS background (no <Image/>) so there’s ZERO stacking ambiguity.
+          z-0 ensures it's the base layer; footer gets z-10 to sit above. */}
+      <section
+        className="relative z-0 w-full h-[65vh] flex-shrink-0"
+        style={{
+          backgroundImage: "url('/Robotteam.jpg')", // Capital R must match the file name
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+        aria-label="Hero image"
+      />
 
-      {/* Bottom panel: dedicated footer container with the form */}
-      <footer className="w-full bg-gray-900 border-t border-gray-800">
+      {/* BOTTOM PANEL — dedicated footer container for the form */}
+      <footer className="relative z-10 w-full bg-gray-900 border-t border-gray-800">
         <div className="mx-auto w-full max-w-2xl px-4 py-10">
           <form
             onSubmit={handleContact}
