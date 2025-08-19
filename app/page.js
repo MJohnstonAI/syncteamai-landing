@@ -48,28 +48,58 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col bg-black text-white">
-      {/* TOP PANEL — image-only hero
-          Use CSS background (no <Image/>) so there’s ZERO stacking ambiguity.
-          z-0 ensures it's the base layer; footer gets z-10 to sit above. */}
+    <main
+      // Force a reliable two-panel layout without relying on Tailwind utilities.
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        backgroundColor: "#000",
+        color: "#fff",
+      }}
+    >
+      {/* TOP PANEL — image-only hero */}
       <section
-        className="relative z-0 w-full h-[65vh] flex-shrink-0"
+        aria-label="Hero image"
         style={{
-          backgroundImage: "url('/Robotteam.jpg')", // Capital R must match the file name
+          // ~65% viewport height hero
+          height: "65vh",
+          width: "100%",
+          backgroundImage: "url('/Robotteam.jpg')", // capital R must match your file name
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
+          // keep it visually clean: no overlay, no text
         }}
-        aria-label="Hero image"
       />
 
       {/* BOTTOM PANEL — dedicated footer container for the form */}
-      <footer className="relative z-10 w-full bg-gray-900 border-t border-gray-800">
-        <div className="mx-auto w-full max-w-2xl px-4 py-10">
+      <footer
+        style={{
+          width: "100%",
+          backgroundColor: "#111827", // tailwind's gray-900
+          borderTop: "1px solid #1f2937", // tailwind's gray-800
+          position: "relative",
+          zIndex: 1, // explicitly above anything behind it
+        }}
+      >
+        <div
+          style={{
+            margin: "0 auto",
+            width: "100%",
+            maxWidth: "42rem", // ~max-w-2xl
+            padding: "2.5rem 1rem", // py-10 px-4
+            textAlign: "center",
+          }}
+        >
           <form
             onSubmit={handleContact}
-            className="flex flex-col md:flex-row gap-4 justify-center w-full"
             aria-describedby="form-status"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "1rem",
+            }}
           >
             <label htmlFor="first-name" className="sr-only">
               First name
@@ -78,11 +108,18 @@ export default function Home() {
               id="first-name"
               type="text"
               placeholder="First name"
-              className="bg-gray-800 border border-gray-700 rounded-md px-4 py-3 text-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 flex-1"
+              autoComplete="given-name"
+              required
+              style={{
+                backgroundColor: "#1f2937", // gray-800
+                border: "1px solid #374151", // gray-700
+                borderRadius: "0.375rem",
+                padding: "0.75rem 1rem",
+                fontSize: "1.125rem",
+                color: "#fff",
+              }}
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
-              required
-              autoComplete="given-name"
             />
 
             <label htmlFor="email" className="sr-only">
@@ -92,28 +129,46 @@ export default function Home() {
               id="email"
               type="email"
               placeholder="Email address"
-              className="bg-gray-800 border border-gray-700 rounded-md px-4 py-3 text-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 flex-1"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
               autoComplete="email"
               inputMode="email"
+              required
+              style={{
+                backgroundColor: "#1f2937",
+                border: "1px solid #374151",
+                borderRadius: "0.375rem",
+                padding: "0.75rem 1rem",
+                fontSize: "1.125rem",
+                color: "#fff",
+              }}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
 
             <button
               type="submit"
-              className="bg-blue-600 hover:bg-blue-700 rounded-md px-8 py-3 text-lg font-semibold transition-colors"
+              style={{
+                backgroundColor: "#2563eb", // blue-600
+                borderRadius: "0.375rem",
+                padding: "0.75rem 2rem",
+                fontSize: "1.125rem",
+                fontWeight: 600,
+                color: "#fff",
+                cursor: "pointer",
+                border: "none",
+              }}
+              onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#1d4ed8")} // blue-700
+              onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#2563eb")}
             >
               Contact via Email
             </button>
           </form>
 
           {(message || mailtoHref) && (
-            <div id="form-status" className="mt-4 text-lg text-center" role="status" aria-live="polite">
+            <div id="form-status" role="status" aria-live="polite" style={{ marginTop: "1rem", fontSize: "1.125rem" }}>
               {message && <p>{message}</p>}
               {mailtoHref && (
-                <p className="mt-2">
-                  <a href={mailtoHref} className="underline">
+                <p style={{ marginTop: "0.5rem" }}>
+                  <a href={mailtoHref} style={{ textDecoration: "underline", color: "#fff" }}>
                     Open email
                   </a>
                 </p>
@@ -121,7 +176,7 @@ export default function Home() {
             </div>
           )}
 
-          <p className="mt-6 text-sm text-gray-400 text-center">
+          <p style={{ marginTop: "1.5rem", fontSize: "0.875rem", color: "#9ca3af" }}>
             We’ll only use your details to notify you about launch.
           </p>
         </div>
