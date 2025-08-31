@@ -1,27 +1,31 @@
 export default function Home() {
   return (
-    // The main container ensures the layout takes up at least the full screen height.
+    // The main container ensures the layout takes up the full screen height.
     <main className="min-h-screen bg-black text-white">
-      {/* HERO SECTION */}
-      {/* This section serves as the main view, with a background image covering the entire screen. */}
+      {/*         HERO SECTION 
+        This section is set to be exactly the height of the screen (h-screen) and acts as the
+        container for all the content. It has a relative position so we can position
+        child elements absolutely within it.
+      */}
       <section
         className="relative h-screen w-full bg-cover bg-center"
-        // Note: I've used a placeholder image as I don't have access to your local '/RobotTeam.jpg'.
-        // You can replace this URL with your original image path.
-        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1518314916381-77a37c2a49ae?q=80&w=2071&auto=format&fit=crop')" }}
-        aria-label="Hero Background"
+        // 1. CORRECTED: The backgroundImage is now correctly set to your 'RobotTeam.jpg'.
+        // For this to work in a Next.js project, 'RobotTeam.jpg' must be placed in the `/public` directory.
+        style={{ backgroundImage: "url('/RobotTeam.jpg')" }}
+        aria-label="A team of robots working on advanced technology"
       >
-        {/* A semi-transparent overlay is applied to improve text readability against the background. */}
+        {/* A semi-transparent black overlay to improve text readability. */}
         <div className="absolute inset-0 bg-black/60" />
 
-        {/* Content Container */}
-        {/* This container uses flexbox to position the header and form.
-           - 'flex-col' stacks the children vertically.
-           - 'justify-between' pushes the header to the top and the form to the bottom.
-           - 'items-center' centers both elements horizontally.
-           - Padding ('p-8', etc.) ensures content doesn't touch the screen edges. */}
-        <div className="relative z-10 flex h-full flex-col items-center justify-between p-8 sm:p-12 md:p-16">
-          {/* Top-centered heading with a glassmorphism effect */}
+        {/*           Content Container 
+          2. FIX: This is the key to the layout.
+           - `h-full w-full`: Ensures this container fills the entire section.
+           - `flex flex-col`: Stacks the header and form vertically.
+           - `justify-between`: Pushes the first item (header) to the top and the last item (form) to the bottom.
+           - `items-center`: Centers both the header and form horizontally on the page.
+        */}
+        <div className="relative z-10 flex h-full w-full flex-col items-center justify-between p-8 md:p-12">
+          {/* 3. FIX: TOP-CENTERED HEADING */}
           <h1
             className="
               max-w-4xl text-center font-extrabold tracking-tight 
@@ -32,8 +36,7 @@ export default function Home() {
             For a Quantum Leap in AI Technology
           </h1>
 
-          {/* Centered Footer Contact Form */}
-          {/* The form is wrapped in a div to control its width and apply consistent styling. */}
+          {/* 4. FIX: CENTERED FOOTER CONTACT FORM */}
           <div className="w-full max-w-md">
             <form className="flex flex-col gap-4 rounded-xl border border-white/15 bg-black/40 p-6 backdrop-blur shadow-lg">
               <h2 className="text-center text-2xl font-bold text-white">Contact Us</h2>
@@ -73,3 +76,4 @@ export default function Home() {
     </main>
   );
 }
+
