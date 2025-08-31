@@ -1,81 +1,188 @@
+"use client";
+
+import { useState } from "react";
+
 export default function Home() {
+  const [firstName, setFirstName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [mailtoHref, setMailtoHref] = useState("");
+
+  const handleContact = (e) => {
+    e.preventDefault();
+
+    if (!firstName.trim()) {
+      setMessage("Please enter your first name.");
+      setMailtoHref("");
+      return;
+    }
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!emailOk) {
+      setMessage("Please enter a valid email address.");
+      setMailtoHref("");
+      return;
+    }
+
+    const to = "syncteamai@gmail.com";
+    const subject = "Please contact me when the system is ready";
+    const bodyLines = [
+      "Hi SyncTeamAI team,",
+      "",
+      "Please add me to the waitlist and let me know when the system is ready.",
+      "",
+      `Name: ${firstName}`,
+      `Email: ${email}`,
+      "",
+      "Thanks!",
+    ];
+    const mailto = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
+      bodyLines.join("\n")
+    )}`;
+
+    // Open the user’s email app
+    window.location.href = mailto;
+
+    // Clickable fallback + status
+    setMailtoHref(mailto);
+    setMessage("Opening your email app… If it didn't open, tap the link below.");
+  };
+
   return (
-    // This `main` element will now correctly fill the screen's height
-    // because the `globals.css` file has set `<html>` and `<body>` to be 100% height.
-    <main className="min-h-screen bg-black text-white">
-      {/* HERO SECTION
-        This section acts as the main container for your page content.
-        - `h-screen`: Makes the section take up the full height of the viewport.
-        - `w-full`: Makes the section take up the full width.
-        - `bg-cover bg-center`: Ensures your background image covers the entire area
-          without distortion, centered nicely.
-        - `style`: Sets the background image. Make sure `RobotTeam.jpg` is in your `/public` folder.
-      */}
+    <main
+      // Force a reliable two-panel layout without relying on Tailwind utilities.
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        backgroundColor: "#000",
+        color: "#fff",
+      }}
+    >
+      {/* TOP PANEL — image-only hero */}
       <section
-        className="relative h-screen w-full bg-cover bg-center"
-        style={{ backgroundImage: "url('/RobotTeam.jpg')" }}
-        aria-label="A team of robots working on advanced technology"
+        aria-label="Hero image"
+        style={{
+          // ~65% viewport height hero
+          height: "65vh",
+          width: "100%",
+          backgroundImage: "url('/RobotTeam.jpg')", // capital R must match your file name
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          // keep it visually clean: no overlay, no text
+        }}
+      />
+
+      {/* BOTTOM PANEL — dedicated footer container for the form */}
+      <footer
+        style={{
+          width: "100%",
+          backgroundColor: "#111827", // tailwind's gray-900
+          borderTop: "1px solid #1f2937", // tailwind's gray-800
+          position: "relative",
+          zIndex: 1, // explicitly above anything behind it
+        }}
       >
-        {/* Semi-transparent overlay to make the text more readable against the background */}
-        <div className="absolute inset-0 bg-black/60" />
-
-        {/* CONTENT CONTAINER
-          This is the key to the corrected layout.
-          - `relative z-10`: Puts this container on top of the overlay.
-          - `flex flex-col h-full w-full`: Makes it a full-height and full-width flex container with a vertical layout.
-          - `items-center`: Centers the header and form horizontally.
-          - `justify-between`: Pushes the header to the top and the form to the bottom.
-        */}
-        <div className="relative z-10 flex h-full w-full flex-col items-center justify-between p-8 md:p-12">
-          {/* TOP-CENTERED HEADING */}
-          <h1
-            className="
-              max-w-4xl text-center font-extrabold tracking-tight 
-              rounded-xl border border-white/15 bg-black/40 backdrop-blur 
-              px-6 py-3 shadow-lg text-[clamp(1.8rem,3vw+1rem,3.5rem)]
-            "
+        <div
+          style={{
+            margin: "0 auto",
+            width: "100%",
+            maxWidth: "42rem", // ~max-w-2xl
+            padding: "2.5rem 1rem", // py-10 px-4
+            textAlign: "center",
+          }}
+        >
+          <form
+            onSubmit={handleContact}
+            aria-describedby="form-status"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "1rem",
+            }}
           >
-            For a Quantum Leap in AI Technology
-          </h1>
+            <label htmlFor="first-name" className="sr-only">
+              First name
+            </label>
+            <input
+              id="first-name"
+              type="text"
+              placeholder="First name"
+              autoComplete="given-name"
+              required
+              style={{
+                backgroundColor: "#1f2937", // gray-800
+                border: "1px solid #374151", // gray-700
+                borderRadius: "0.375rem",
+                padding: "0.75rem 1rem",
+                fontSize: "1.125rem",
+                color: "#fff",
+              }}
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
 
-          {/* CENTERED FOOTER CONTACT FORM */}
-          <div className="w-full max-w-md">
-            <form className="flex flex-col gap-4 rounded-xl border border-white/15 bg-black/40 p-6 backdrop-blur shadow-lg">
-              <h2 className="text-center text-2xl font-bold text-white">Contact Us</h2>
-              <div>
-                <label htmlFor="email" className="sr-only">Email address</label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  autoComplete="email"
-                  required
-                  className="w-full rounded-md border-white/20 bg-white/5 px-4 py-2 text-white placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500"
-                  placeholder="Enter your email"
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="sr-only">Message</label>
-                <textarea
-                  name="message"
-                  id="message"
-                  rows={4}
-                  required
-                  className="w-full rounded-md border-white/20 bg-white/5 px-4 py-2 text-white placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500"
-                  placeholder="Your message"
-                />
-              </div>
-              <button
-                type="submit"
-                className="rounded-md bg-indigo-600 px-4 py-2 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-colors"
-              >
-                Send Message
-              </button>
-            </form>
-          </div>
+            <label htmlFor="email" className="sr-only">
+              Email address
+            </label>
+            <input
+              id="email"
+              type="email"
+              placeholder="Email address"
+              autoComplete="email"
+              inputMode="email"
+              required
+              style={{
+                backgroundColor: "#1f2937",
+                border: "1px solid #374151",
+                borderRadius: "0.375rem",
+                padding: "0.75rem 1rem",
+                fontSize: "1.125rem",
+                color: "#fff",
+              }}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+
+            <button
+              type="submit"
+              style={{
+                backgroundColor: "#2563eb", // blue-600
+                borderRadius: "0.375rem",
+                padding: "0.75rem 2rem",
+                fontSize: "1.125rem",
+                fontWeight: 600,
+                color: "#fff",
+                cursor: "pointer",
+                border: "none",
+              }}
+              onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#1d4ed8")} // blue-700
+              onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#2563eb")}
+            >
+              Contact via Email
+            </button>
+          </form>
+
+          {(message || mailtoHref) && (
+            <div id="form-status" role="status" aria-live="polite" style={{ marginTop: "1rem", fontSize: "1.125rem" }}>
+              {message && <p>{message}</p>}
+              {mailtoHref && (
+                <p style={{ marginTop: "0.5rem" }}>
+                  <a href={mailtoHref} style={{ textDecoration: "underline", color: "#fff" }}>
+                    Open email
+                  </a>
+                </p>
+              )}
+            </div>
+          )}
+
+          <p style={{ marginTop: "1.5rem", fontSize: "0.875rem", color: "#9ca3af" }}>
+            We’ll only use your details to notify you about launch.
+          </p>
         </div>
-      </section>
+      </footer>
     </main>
   );
 }
+
 
