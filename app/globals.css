@@ -1,3 +1,15 @@
+/* This is the most important part of the fix.
+  These base styles ensure that the root elements of your page
+  take up the full height of the browser window.
+*/
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
