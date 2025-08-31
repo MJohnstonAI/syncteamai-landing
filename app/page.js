@@ -8,7 +8,7 @@ export default function Home() {
   const [message, setMessage] = useState("");
   const [mailtoHref, setMailtoHref] = useState("");
 
-  const handleContact = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleContact = (e) => {
     e.preventDefault();
 
     if (!firstName.trim()) {
@@ -49,7 +49,6 @@ export default function Home() {
 
   return (
     <main
-      // Force a reliable two-panel layout without relying on Tailwind utilities.
       style={{
         minHeight: "100vh",
         display: "flex",
@@ -62,17 +61,16 @@ export default function Home() {
       <section
         aria-label="Hero image"
         style={{
-          // ~65% viewport height hero
           height: "65vh",
           width: "100%",
-          backgroundImage: "url('/RobotTeam.jpg')", // capital R must match your file name
+          backgroundImage: "url('/RobotTeam.jpg')", // Ensure file is in /public/RobotTeam.jpg at project root
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-          position: "relative", // <-- needed for absolute-positioned heading
+          position: "relative",
         }}
       >
-        {/* === ADD HEADING HERE (top center over the image) === */}
+        {/* Top-centered heading over the image */}
         <h1
           style={{
             position: "absolute",
@@ -86,7 +84,7 @@ export default function Home() {
             lineHeight: 1.25,
             color: "#fff",
             textAlign: "center",
-            backgroundColor: "rgba(0,0,0,0.35)", // subtle readability backdrop
+            backgroundColor: "rgba(0,0,0,0.35)",
             borderRadius: "0.375rem",
             zIndex: 2,
           }}
@@ -95,14 +93,14 @@ export default function Home() {
         </h1>
       </section>
 
-      {/* BOTTOM PANEL — dedicated footer container for the form */}
+      {/* BOTTOM PANEL — form footer */}
       <footer
         style={{
           width: "100%",
-          backgroundColor: "#111827", // tailwind's gray-900
-          borderTop: "1px solid #1f2937", // tailwind's gray-800
+          backgroundColor: "#111827", // gray-900
+          borderTop: "1px solid #1f2937", // gray-800
           position: "relative",
-          zIndex: 1, // explicitly above anything behind it
+          zIndex: 1,
         }}
       >
         <div
@@ -134,7 +132,7 @@ export default function Home() {
               required
               style={{
                 backgroundColor: "#1f2937", // gray-800
-                border: "1px solid "#374151", // gray-700
+                border: "1px solid #374151", // gray-700
                 borderRadius: "0.375rem",
                 padding: "0.75rem 1rem",
                 fontSize: "1.125rem",
