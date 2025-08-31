@@ -1,0 +1,32 @@
+<!-- FILE: syncteamai-landing/app/index.html -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>SyncTeamAI — Waitlist</title>
+    <meta name="description" content="Join the SyncTeamAI launch waitlist." />
+    <!-- Tailwind CSS (no build needed) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root { color-scheme: dark; }
+      .text-balance { text-wrap: balance; }
+      /* Ensure body uses full height for footer layout */
+      html, body { height: 100%; }
+    </style>
+  </head>
+
+  <body class="min-h-screen flex flex-col bg-black text-white">
+    <!-- HERO -->
+    <section
+      class="relative h-[65vh] w-full bg-cover bg-center"
+      style="background-image:url('./public/RobotTeam.jpg')"
+      aria-label="SyncTeamAI council hero"
+    >
+      <!-- Top-centered heading -->
+      <div class="absolute inset-x-0 top-5 flex justify-center">
+        <h1
+          class="mx-auto px-4 py-2 text-center font-extrabold tracking-tight rounded-xl border border-white/15 bg-black/35 backdrop-blur text-balance shadow-[0_2px_8px_rgba(0,0,0,0.6)] text-[clamp(1.125rem,2vw+1rem,2.25rem)]"
