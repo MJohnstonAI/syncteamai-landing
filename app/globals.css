@@ -1,15 +1,17 @@
-/* This is the most important part of the fix.
-  These base styles ensure that the root elements of your page
-  take up the full height of the browser window.
-*/
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/*
+  THIS IS THE CRITICAL FIX:
+  These rules ensure that the html, body, and the main Next.js wrapper div
+  all take up 100% of the available height. This creates the foundation
+  that allows `h-screen` and `min-h-screen` to work correctly everywhere
+  in your application.
+*/
 html,
-body {
+body,
+body > div:first-child,
+div#__next {
   height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
 }
