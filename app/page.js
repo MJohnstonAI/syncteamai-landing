@@ -8,7 +8,7 @@ export default function Home() {
   const [message, setMessage] = useState("");
   const [mailtoHref, setMailtoHref] = useState("");
 
-  const handleContact = (e) => {
+  const handleContact = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!firstName.trim()) {
@@ -69,9 +69,31 @@ export default function Home() {
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-          // keep it visually clean: no overlay, no text
+          position: "relative", // <-- needed for absolute-positioned heading
         }}
-      />
+      >
+        {/* === ADD HEADING HERE (top center over the image) === */}
+        <h1
+          style={{
+            position: "absolute",
+            top: "1rem",
+            left: "50%",
+            transform: "translateX(-50%)",
+            margin: 0,
+            padding: "0.25rem 0.75rem",
+            fontSize: "clamp(1.125rem, 2.5vw + 0.5rem, 2rem)",
+            fontWeight: 700,
+            lineHeight: 1.25,
+            color: "#fff",
+            textAlign: "center",
+            backgroundColor: "rgba(0,0,0,0.35)", // subtle readability backdrop
+            borderRadius: "0.375rem",
+            zIndex: 2,
+          }}
+        >
+          Join the launch of an exciting new product in AI technology
+        </h1>
+      </section>
 
       {/* BOTTOM PANEL — dedicated footer container for the form */}
       <footer
@@ -112,7 +134,7 @@ export default function Home() {
               required
               style={{
                 backgroundColor: "#1f2937", // gray-800
-                border: "1px solid #374151", // gray-700
+                border: "1px solid "#374151", // gray-700
                 borderRadius: "0.375rem",
                 padding: "0.75rem 1rem",
                 fontSize: "1.125rem",
@@ -184,5 +206,3 @@ export default function Home() {
     </main>
   );
 }
-
-
