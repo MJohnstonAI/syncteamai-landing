@@ -1,7 +1,6 @@
-// This is the root layout file for your Next.js application.
-// It wraps around your page components.
+// This file is the main layout for your application.
+// Its primary role here is to import and apply the global CSS.
 
-// 1. We import the global CSS file here to apply the styles to the entire app.
 import './globals.css';
 
 export const metadata = {
@@ -12,7 +11,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      {/* The body tag will now correctly have 100% height because of globals.css */}
+      {/* This body tag will now correctly fill the browser's height 
+        because of the rules you placed in `globals.css`. 
+        The `children` prop represents any page that gets rendered, 
+        like your `page.js` component.
+      */}
       <body>{children}</body>
     </html>
   );
